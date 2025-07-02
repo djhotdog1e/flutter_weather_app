@@ -24,6 +24,7 @@ Widget weekItem(WeatherData data) {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Text('${data.minTemp}°', style: const TextStyle(color: Colors.grey)),
+        Text(data.condition, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10))
       ],
     ),
   );
