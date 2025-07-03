@@ -11,7 +11,7 @@ class WeatherApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
       ),
-      home: const WeatherScreen(),
+      home:  WeatherScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

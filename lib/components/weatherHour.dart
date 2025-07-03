@@ -5,7 +5,7 @@ Widget hourWeather(List<WeatherData> hours) {
   final dataHours = hours.take(24).toList();
 
   return Container(
-    height: 135,
+    height: 163,
     margin: const EdgeInsets.symmetric(vertical: 10),
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -15,7 +15,7 @@ Widget hourWeather(List<WeatherData> hours) {
         final hour = dataHours[index];
         
         return Container(
-          width: 80,
+          width: 90,
           margin: const EdgeInsets.symmetric(horizontal: 6),
           padding: const EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 10),
           decoration: BoxDecoration(
@@ -43,4 +43,21 @@ Widget hourWeather(List<WeatherData> hours) {
       },
     ),
   );
+}
+
+
+abstract class SomeShit{
+
+  void doShit();
+
+}
+
+class ConcreteShit implements SomeShit{
+ 
+ 
+  @override
+  void doShit() {
+    print('shit happens');
+  }
+
 }

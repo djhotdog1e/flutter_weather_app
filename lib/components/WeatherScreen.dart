@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/data/weatherData.dart';
 import 'package:weather_app/data/weatherApi.dart';
@@ -6,25 +7,30 @@ import 'package:weather_app/components/weatherInfo.dart';
 import 'package:weather_app/components/weatherWeek.dart';
 import 'package:weather_app/components/weatherHour.dart';
 
+
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({super.key});
+
+   WeatherScreen({super.key});
 
   @override
   State<WeatherScreen> createState() => WeatherScreenState();
 }
+ 
+
+
 
 class WeatherScreenState extends State<WeatherScreen> {
+    final WeatherApi api = WeatherApiCom();
   late Future<List<WeatherData>> futureWeatherWeek;
   late Future<Map<String, dynamic>> futureCurrentWeather;
   late Future<List<WeatherData>> futureWeatherHour;
 
-
   @override
   void initState() {
     super.initState();
-    futureWeatherWeek = WeatherApi.fetchWeatherWeek();
-    futureCurrentWeather = WeatherApi.fetchCurrentWeather();
-    futureWeatherHour = WeatherApi.fetchWeatherHour();
+    futureWeatherWeek = api.fetchWeatherWeek();
+    futureCurrentWeather = api.fetchCurrentWeather();
+    futureWeatherHour = api.fetchWeatherHour();
   }
 
   @override
@@ -57,7 +63,7 @@ class WeatherScreenState extends State<WeatherScreen> {
                 builder: (context, state) {
                   if (state.hasData) {
                     final hours = state.data!;
-                    return hourWeather(hours);
+                    return ScrollConfiguration(behavior: CustomBehavior(),child: hourWeather(hours),);
                   } else {
                       return const SizedBox.shrink();
                     }
@@ -80,3 +86,12 @@ class WeatherScreenState extends State<WeatherScreen> {
     );
   }
 }
+
+
+class CustomBehavior extends ScrollBehavior{
+  @override
+   Set<PointerDeviceKind> _kTouchLikeDeviceTypes = {
+     PointerDeviceKind.mouse,
+     PointerDeviceKind.touch,
+  };
+ }
