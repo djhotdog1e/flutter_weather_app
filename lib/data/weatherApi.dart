@@ -28,4 +28,15 @@ class WeatherApi {
     return forecastDays.map<WeatherData>((json) => WeatherData.fromForecastDay(json)).toList();
   }
 
+  static Future<List<WeatherData>> fetchWeatherHour() async {
+    final url =
+        'https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$city&days=1&lang=ru';
+
+    final response = await http.get(Uri.parse(url));
+
+    final data = jsonDecode(response.body);
+    final List hours = data['forecast']['forecastday'][0]['hour'];
+    return hours.map<WeatherData>((json) => WeatherData.fromHourJson(json)).toList();
+  }
+
 }
