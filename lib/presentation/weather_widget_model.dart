@@ -31,10 +31,16 @@ class WeatherWidgetModel extends WidgetModel<WeatherScreen, WeatherModel>
     _loadWeatherData();
   }
 
-  Future<void> _loadWeatherData() async {
-    _currentWeather.value = await model.fetchCurrentWeather();
-    _weeklyWeather.value = await model.fetchWeatherWeek();
-    _hourlyWeather.value = await model.fetchWeatherHour();
-  }
+Future<void> _loadWeatherData() async {
+  _currentWeather.value = await model.fetchCurrentWeather();
+  print('Current weather loaded: ${_currentWeather.value != null}');
+  
+  _weeklyWeather.value = await model.fetchWeatherWeek();
+  print('Weekly weather loaded: ${_weeklyWeather.value?.length ?? 0} days');
+  
+  _hourlyWeather.value = await model.fetchWeatherHour();
+  print('Hourly weather loaded: ${_hourlyWeather.value?.length ?? 0} hours');
+}
+
 
 }

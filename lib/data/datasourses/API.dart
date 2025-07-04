@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../weatherData.dart';
+import 'package:weather_app/data/models/weather_model.dart';
 
 abstract class API {
   dynamic fetchCurrentWeather();
@@ -25,20 +26,20 @@ class WeatherApiCom implements API {
   }
 
   @override
-  Future<List<WeatherData>> fetchWeatherWeek() async {
+  Future<List<WeatherModel>> fetchWeatherWeek() async {
     final url = '$baseUrl/forecast.json?key=$apiKey&q=$city&days=7&lang=ru';
     final response = await http.get(Uri.parse(url));
     final data = jsonDecode(response.body);
     final List forecastDays = data['forecast']['forecastday'];
-    return forecastDays.map<WeatherData>((json) => WeatherData.fromForecastDay(json)).toList();
+    return forecastDays.map((json) => WeatherModel.fromForecastDay(json)).toList();
   }
 
   @override
-  Future<List<WeatherData>> fetchWeatherHour() async {
+  Future<List<WeatherModel>> fetchWeatherHour() async {
     final url = '$baseUrl/forecast.json?key=$apiKey&q=$city&days=1&lang=ru';
     final response = await http.get(Uri.parse(url));
     final data = jsonDecode(response.body);
     final List hours = data['forecast']['forecastday'][0]['hour'];
-    return hours.map<WeatherData>((json) => WeatherData.fromHourJson(json)).toList();
+    return hours.map((json) => WeatherModel.fromHourJson(json)).toList();
   }
 }
