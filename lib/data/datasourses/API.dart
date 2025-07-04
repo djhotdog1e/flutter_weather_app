@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'weatherData.dart';
+import '../weatherData.dart';
 
-abstract class WeatherApi {
-  Future<Map<String, dynamic>> fetchCurrentWeather();
-  Future<List<WeatherData>> fetchWeatherWeek();
-  Future<List<WeatherData>> fetchWeatherHour();
+abstract class API {
+  dynamic fetchCurrentWeather();
+  dynamic fetchWeatherWeek();
+  dynamic fetchWeatherHour();
 }
 
-class WeatherApiCom implements WeatherApi {
+class WeatherApiCom implements API {
   static String get apiKey => dotenv.env['API_KEY']!;
   static String get baseUrl => dotenv.env['WEATHER_URL']!;
   static String get city => dotenv.env['CITY']!;

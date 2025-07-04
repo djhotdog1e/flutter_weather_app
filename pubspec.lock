@@ -177,6 +177,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  elementary:
+    dependency: "direct main"
+    description:
+      name: elementary
+      sha256: "0e8e5cc6039b0e9c42d23f8e579d98f2f7a1c3e8e4fc42e45b5a5ed88b68de6a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   fake_async:
     dependency: transitive
     description:

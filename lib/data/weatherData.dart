@@ -49,13 +49,5 @@ class WeatherData {
   }
 }
 
-// data 
-//   dto 
-//   repositories
-  
-// domain
-//   usecases 
-// presentation
-//   widgets 
-//   models 
+
 

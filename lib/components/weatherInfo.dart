@@ -39,9 +39,3 @@ Widget weatherInfo({
     ),
   );
 }
-abstract class WeatherRepository{
-
-
-  Future<void> getWeather()async {
-  }
-}

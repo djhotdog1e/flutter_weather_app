@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/data/weatherData.dart';
-import 'package:weather_app/data/weatherApi.dart';
+import 'package:weather_app/data/datasourses/API.dart';
 import 'package:weather_app/components/header.dart';
 import 'package:weather_app/components/weatherInfo.dart';
 import 'package:weather_app/components/weatherWeek.dart';
@@ -10,7 +10,7 @@ import 'package:weather_app/components/weatherHour.dart';
 
 class WeatherScreen extends StatefulWidget {
 
-   WeatherScreen({super.key});
+   const WeatherScreen({super.key});
 
   @override
   State<WeatherScreen> createState() => WeatherScreenState();
@@ -20,7 +20,7 @@ class WeatherScreen extends StatefulWidget {
 
 
 class WeatherScreenState extends State<WeatherScreen> {
-    final WeatherApi api = WeatherApiCom();
+  final API api = WeatherApiCom();
   late Future<List<WeatherData>> futureWeatherWeek;
   late Future<Map<String, dynamic>> futureCurrentWeather;
   late Future<List<WeatherData>> futureWeatherHour;
@@ -63,8 +63,13 @@ class WeatherScreenState extends State<WeatherScreen> {
                 builder: (context, state) {
                   if (state.hasData) {
                     final hours = state.data!;
-                    return ScrollConfiguration(behavior: CustomBehavior(),child: hourWeather(hours),);
-                  } else {
+                    return ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },),
+                      child: hourWeather(hours),);
+                    } else {
                       return const SizedBox.shrink();
                     }
                   },
@@ -88,10 +93,3 @@ class WeatherScreenState extends State<WeatherScreen> {
 }
 
 
-class CustomBehavior extends ScrollBehavior{
-  @override
-   Set<PointerDeviceKind> _kTouchLikeDeviceTypes = {
-     PointerDeviceKind.mouse,
-     PointerDeviceKind.touch,
-  };
- }
