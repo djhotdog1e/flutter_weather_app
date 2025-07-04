@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:elementary/elementary.dart';
 import 'weather_widget_model.dart';
@@ -40,7 +42,12 @@ class WeatherScreen extends ElementaryWidget<IWeatherWidgetModel> {
                 if (hours == null) {
                   return const SizedBox.shrink();
                 }
-                return WeatherHour(hours: hours);
+                return ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },),
+                      child:WeatherHour(hours: hours));
               },
             ),
             ValueListenableBuilder<List?>(
