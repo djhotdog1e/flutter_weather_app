@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Widget header() {
+  final city = dotenv.env['CITY']!;
   final now = DateTime.now();
   return Container(
     padding: const EdgeInsets.all(10),
@@ -11,9 +13,9 @@ Widget header() {
     ),
     child: Column(
       children: [
-        const Text(
-          'Санкт-Петербург',
-          style: TextStyle(
+        Text(
+          city,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 28,
             fontWeight: FontWeight.bold,
