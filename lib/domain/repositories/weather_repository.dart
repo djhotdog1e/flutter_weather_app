@@ -1,6 +1,6 @@
 abstract class WeatherRepository {
-  dynamic getCurrentWeather();
-  dynamic getWeeklyWeather();
-  dynamic getHourlyWeather();
+  dynamic getCurrentWeather(String city);
+  dynamic getWeeklyWeather(String city);
+  dynamic getHourlyWeather(String city);
 }
 

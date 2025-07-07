@@ -6,8 +6,8 @@ class GetCurrentWeather {
 
   GetCurrentWeather(this.repository);
 
-  Future<Map<String, dynamic>> call() async {
-    return repository.getCurrentWeather();
+  Future<Map<String, dynamic>> call(String city) async {
+    return repository.getCurrentWeather(city);
   }
 }
 
@@ -16,8 +16,8 @@ class GetWeeklyWeather {
 
   GetWeeklyWeather(this.repository);
 
-  Future<List<WeatherEntity>> call() async {
-    return repository.getWeeklyWeather();
+  Future<List<WeatherEntity>> call(String city) async {
+    return repository.getWeeklyWeather(city);
   }
 }
 
@@ -26,7 +26,7 @@ class GetHourlyWeather {
 
   GetHourlyWeather(this.repository);
 
-  Future<List<WeatherEntity>> call() async {
-    return repository.getHourlyWeather();
+  Future<List<WeatherEntity>> call(String city) async {
+    return repository.getHourlyWeather(city);
   }
 }

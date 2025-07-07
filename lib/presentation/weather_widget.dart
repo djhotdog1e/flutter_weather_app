@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:elementary/elementary.dart';
 import 'weather_widget_model.dart';
@@ -7,8 +8,8 @@ import 'widgets/weather_info.dart';
 import 'widgets/weather_hour.dart';
 import 'widgets/weather_week.dart';
 
-class WeatherScreen extends ElementaryWidget<IWeatherWidgetModel> {
-  const WeatherScreen({
+class WeatherWidget extends ElementaryWidget<IWeatherWidgetModel> {
+  const WeatherWidget({
     Key? key,
     WidgetModelFactory wmFactory = weatherWidgetModelFactory,
   }) : super(wmFactory, key: key);
@@ -20,7 +21,17 @@ class WeatherScreen extends ElementaryWidget<IWeatherWidgetModel> {
       body: Center(
         child: Column(
           children: [
-            const WeatherHeader(),
+            ValueListenableBuilder<String>(
+              valueListenable: wm.city,
+              builder: (context, city, _) {
+                return WeatherHeader(
+                  city: city,
+                  onCityChanged: (newCity) {
+                    wm.updateCity(newCity);
+                  },
+                );
+              },
+            ),
             ValueListenableBuilder<Map<String, dynamic>?>(
               valueListenable: wm.currentWeather,
               builder: (context, current, _) {
@@ -40,7 +51,12 @@ class WeatherScreen extends ElementaryWidget<IWeatherWidgetModel> {
                 if (hours == null) {
                   return const SizedBox.shrink();
                 }
-                return WeatherHour(hours: hours);
+                return ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                        PointerDeviceKind.touch,
+                        PointerDeviceKind.mouse,
+                      },),
+                      child:WeatherHour(hours: hours));
               },
             ),
             ValueListenableBuilder<List?>(
