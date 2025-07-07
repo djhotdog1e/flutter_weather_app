@@ -1,29 +1,27 @@
-import 'package:weather_app/domain/entities/weather_entity.dart';
+class WeatherDTO {
+  final String day;
+  final double? maxTemp;
+  final double? minTemp;
+  final String condition;
+  final String iconUrl;
+  final String? hour;
+  final double? tempHour;
 
-class WeatherModel extends WeatherEntity {
-  const WeatherModel({
-    required String day,
-    double? maxTemp,
-    double? minTemp,
-    required String condition,
-    required String iconUrl,
-    String? hour,
-    double? tempHour,
-  }) : super(
-          day: day,
-          maxTemp: maxTemp,
-          minTemp: minTemp,
-          condition: condition,
-          iconUrl: iconUrl,
-          hour: hour,
-          tempHour: tempHour,
-        );
+  WeatherDTO({
+    this.day= '',
+    this.maxTemp,
+    this.minTemp,
+    required this.condition,
+    required this.iconUrl,
+    this.hour,
+    this.tempHour,
+  });
 
-  factory WeatherModel.fromForecastDay(Map<String, dynamic> json) {
+  factory WeatherDTO.fromForecastDay(Map<String, dynamic> json) {
     final date = DateTime.parse(json['date']);
     const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
-    return WeatherModel(
+    return WeatherDTO(
       day: weekDays[date.weekday - 1],
       maxTemp: (json['day']['maxtemp_c'] as num).toDouble(),
       minTemp: (json['day']['mintemp_c'] as num).toDouble(),
@@ -32,11 +30,11 @@ class WeatherModel extends WeatherEntity {
     );
   }
 
-  factory WeatherModel.fromHourJson(Map<String, dynamic> json) {
+  factory WeatherDTO.fromHourJson(Map<String, dynamic> json) {
     final timeStr = json['time'];
     final hour = DateTime.parse(timeStr).hour.toString().padLeft(2, '0');
 
-    return WeatherModel(
+    return WeatherDTO(
       day: '',
       hour: '$hour:00',
       tempHour: (json['temp_c'] as num).toDouble(),

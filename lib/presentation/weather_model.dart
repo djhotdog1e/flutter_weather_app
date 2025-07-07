@@ -12,18 +12,19 @@ class WeatherModel extends ElementaryModel {
     required this.getHourlyWeather,
   });
 
-  Future<Map<String, dynamic>?> fetchCurrentWeather() async {
-      return getCurrentWeather();
+  Future<Map<String, dynamic>?> fetchCurrentWeather(String city) async {
+      return getCurrentWeather(city);
 
   }
 
-  Future<List?> fetchWeatherWeek() async {
-      return getWeeklyWeather();
+  Future<List?> fetchWeatherWeek(String city) async {
+      return getWeeklyWeather(city);
   }
 
-  Future<List?> fetchWeatherHour() async {
-      return getHourlyWeather();
+  Future<List?> fetchWeatherHour(String city) async {
+      return getHourlyWeather(city);
 
   }
+
 }
 
